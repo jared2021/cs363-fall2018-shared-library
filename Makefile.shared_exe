@@ -31,8 +31,8 @@ LIBPREFIX     = lib
 LIBSUFFIX     = 
 GENFLAGS      = -O
 LDLIBS        = -l"my_shared_lib$(LIBSUFFIX)" -ldl $(subst lib,-l,$(sort $(basename $(notdir $(wildcard /usr/lib/librt.so /lib/librt.so))))) -lpthread
-OBJS          = my_shared_lib$(OBJEXT)
-SRC           = my_shared_lib.cpp
+OBJS          = shared_exe$(OBJEXT)
+SRC           = shared_exe.cpp
 LINK.cc       = $(LD) $(LDFLAGS)
 EXPORTFLAGS   = 
 DEPLIBS       = $(foreach lib, my_shared_lib$(LIBSUFFIX) , $(foreach libpath, ., $(wildcard $(libpath)/lib$(lib).a)))
@@ -50,8 +50,8 @@ $(BIN): $(OBJS) $(DEPLIBS)
 generated: $(GENERATED_DIRTY)
 	@-:
 
-my_shared_lib$(OBJEXT): my_shared_lib.cpp
-	$(COMPILE.cc) $(EXPORTFLAGS) $(OUTPUT_OPTION) my_shared_lib.cpp
+shared_exe$(OBJEXT): shared_exe.cpp
+	$(COMPILE.cc) $(EXPORTFLAGS) $(OUTPUT_OPTION) shared_exe.cpp
 
 clean:
 	-$(RM) $(OBJS)
